@@ -1,0 +1,19 @@
+{
+  "name": "Cirquet",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "prepublish": "tsc index.ts --module commonjs ",
+    "pretest": "tsc source/test/ts/*Test.ts --module commonjs",
+    "test": "mocha"
+  },
+  "dependencies": {
+    "chai": "latest",
+    "mocha": "latest",
+    "ntypescript": "latest"
+  },
+  "devDependencies": {
+    "install": "0.6.1",
+    "jasmine-core": "2.4.1"
+  }
+}
