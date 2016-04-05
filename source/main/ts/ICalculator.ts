@@ -4,10 +4,10 @@
 
 "use strict";
 
-import Circuit from "./Circuit";
+import Circuit from "./ICircuit";
 
-interface Calculator {
+interface ICalculator {
     calculate(circuit: Circuit): Circuit;
 }
 
-export default Calculator;
+export default ICalculator;

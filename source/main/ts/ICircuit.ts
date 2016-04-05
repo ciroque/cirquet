@@ -4,13 +4,14 @@
 
 "use strict";
 
-import ResistorProperties from "./ResistorProperties";
+import ResistorProperties from "./IResistorProperties";
+import ICloneable from "./ICloneable";
 
-interface Circuit {
+interface ICircuit extends ICloneable {
     resistors: ResistorProperties[];
     amperageTotal: number;
     voltageTotal: number;
     resistanceTotal: number;
 }
 
-export default Circuit;
+export default ICircuit;

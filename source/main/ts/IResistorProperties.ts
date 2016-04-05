@@ -4,10 +4,10 @@
 
 "use strict";
 
-interface ResistorProperties {
+interface IResistorProperties {
     ohmic: number;
     voltageDrop: number;
     powerUsed: number;
 }
 
-export default ResistorProperties;
+export default IResistorProperties;
