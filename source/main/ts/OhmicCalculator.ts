@@ -13,7 +13,9 @@ export default class OhmicCalculator implements Calculator {
         var cloned = circuit.clone({});
 
         if(cloned.amperageTotal === 0 && cloned.voltageTotal !== 0) {
-            cloned = cloned.withAmperage( cloned.voltageTotal / cloned.resistanceTotal );
+            cloned = cloned.withAmperage(cloned.voltageTotal / cloned.resistanceTotal );
+        } else if(cloned.amperageTotal !== 0 && cloned.voltageTotal === 0) {
+            cloned = cloned.withVoltage(cloned.amperageTotal * cloned.resistanceTotal);
         }
         
         return cloned;
