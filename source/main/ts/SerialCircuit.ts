@@ -5,10 +5,10 @@
 "use strict";
 
 import ResistorProperties from "./IResistorProperties";
-import Circuit from "./ICircuit";
+import ICircuit from "./ICircuit";
 import Cloneable from "./Cloneable";
 
-export default class SerialCircuit extends Cloneable implements Circuit {
+export default class SerialCircuit extends Cloneable implements ICircuit {
     resistors: ResistorProperties[] = [];
     amperageTotal: number = 0;
     voltageTotal: number = 0;
