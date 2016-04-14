@@ -26,6 +26,11 @@ export default class SerialCircuit extends Cloneable implements ICircuit {
         return this;
     }
 
+    withTotalResistance(resistance: number) {
+        this.resistanceTotal = resistance;
+        return this;
+    }
+
     addResistor(resistor: ResistorProperties) {
         this.resistors.push(resistor);
         this.resistanceTotal += resistor.ohmic;
