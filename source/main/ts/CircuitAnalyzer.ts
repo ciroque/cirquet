@@ -25,7 +25,7 @@ export default class CircuitAnalyzer implements ICalculator {
             if(cloned.amperageTotal === 0 && cloned.voltageTotal !== 0) {
                 cloned = cloned.withAmperage(cloned.voltageTotal / cloned.resistanceTotal );
 
-                // E = I * R
+            // E = I * R
             } else if(cloned.amperageTotal !== 0 && cloned.voltageTotal === 0) {
                 cloned = cloned.withVoltage(cloned.amperageTotal * cloned.resistanceTotal);
 
