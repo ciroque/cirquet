@@ -12,6 +12,7 @@ interface ICircuit extends ICloneable {
     amperageTotal: number;
     voltageTotal: number;
     resistanceTotal: number;
+    wattageTotal: number;
 }
 
 export default ICircuit;

@@ -13,6 +13,7 @@ export default class SerialCircuit extends Cloneable implements ICircuit {
     amperageTotal: number = 0;
     voltageTotal: number = 0;
     resistanceTotal: number = 0;
+    wattageTotal: number = 0;
 
     constructor() { super(); }
 
@@ -28,6 +29,11 @@ export default class SerialCircuit extends Cloneable implements ICircuit {
 
     withTotalResistance(resistance: number) {
         this.resistanceTotal = resistance;
+        return this;
+    }
+
+    withTotalWattage(wattage: number) {
+        this.wattageTotal = wattage;
         return this;
     }
 

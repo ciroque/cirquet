@@ -10,16 +10,16 @@ import ICircuit from "./ICircuit";
 export default class CircuitAnalyzer implements ICalculator {
     analyze(circuit: ICircuit): ICircuit {
 
-        var validate = () => {
-            if(circuit.amperageTotal === 0
-                && circuit.resistanceTotal === 0
-                && circuit.voltageTotal === 0) {
+        var validate = (c: ICircuit) => {
+            if(c.amperageTotal === 0
+                && c.resistanceTotal === 0
+                && c.voltageTotal === 0) {
                 throw "Invalid circuit";
             }
         };
 
-        var applyOhmsLaw = (): ICircuit => {
-            var cloned = circuit.clone({});
+        var applyOhmsLaw = (c: ICircuit): ICircuit => {
+            var cloned = c.clone({});
 
             // I = E / R
             if(cloned.amperageTotal === 0 && cloned.voltageTotal !== 0) {
@@ -33,11 +33,25 @@ export default class CircuitAnalyzer implements ICalculator {
             } else if(cloned.amperageTotal !== 0 && cloned.voltageTotal !== 0) {
                 cloned.withTotalResistance(cloned.voltageTotal / cloned.amperageTotal);
             }
+
             return cloned;
         };
 
-        validate();
+        var calculateResistorValues = (c: ICircuit) => {
+          var wattage = 0;
+          for(let index = 0; index < c.resistors.length; index++) {
+            let r = c.resistors[index];
+            r.powerUsed = (c.amperageTotal * c.amperageTotal) * r.ohmic;
+            wattage += r.powerUsed;
+          }
 
-        return applyOhmsLaw();
+          c.wattageTotal = wattage;
+
+          return c;
+        };
+
+        validate(circuit);
+
+        return calculateResistorValues(applyOhmsLaw(circuit));
     }
 }
