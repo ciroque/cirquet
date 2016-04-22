@@ -42,4 +42,8 @@ export default class SerialCircuit extends Cloneable implements ICircuit {
         this.resistanceTotal += resistor.ohmic;
         return this;
     }
+
+    toString() {
+        return `amps: ${this.amperageTotal}\nvolts: ${this.voltageTotal}\nwattage: ${this.wattageTotal}\nohms: ${this.resistanceTotal}`;
+    }
 }
