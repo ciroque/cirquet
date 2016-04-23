@@ -203,6 +203,14 @@ describe('CircuitAnalyzer', () => {
 
     describe('resolve resistor values', () => {
 
+        it('calculates total resistance and power for no resistors', () => {
+            let analyzer = new CircuitAnalyzer();
+            let circuit = new SerialCircuit().withVoltage(24).withAmperage(2);
+            let resolvedCircuit = analyzer.analyze(circuit);
+
+            expect(resolvedCircuit.resistanceTotal).to.eq(12);
+        });
+
         it('calculates total resistance and power for one resistor: 10-ohm', () => {
             let analyzer = new CircuitAnalyzer();
             let r1 = new Resistor(10, 0, 0);
@@ -228,6 +236,7 @@ describe('CircuitAnalyzer', () => {
                .addResistor(r1)
                .addResistor(r2)
                .addResistor(r3);
+
            let resolvedCircuit = analyzer.analyze(circuit);
 
            expect(resolvedCircuit.resistors[0].powerUsed).to.eq(80);
