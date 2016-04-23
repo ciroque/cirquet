@@ -1,7 +1,3 @@
-/**
- * Created by swagner on 4/3/16.
- */
-
 "use strict";
 
 import ICalculator from "./ICircuitAnalyzer";

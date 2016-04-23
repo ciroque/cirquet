@@ -14,9 +14,5 @@
     "node_modules",
     "typings/main",
     "typings/main.d.ts"
-  ],
-  "files": [
-    "mocha.d.ts",
-    "chai.d.ts"
   ]
 }
