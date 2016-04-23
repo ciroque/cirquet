@@ -5,9 +5,9 @@
 
 import chai = require('chai');
 
-import SerialCircuit from "../main/ts/SerialCircuit";
 import Resistor from "../main/ts/Resistor";
 import CircuitAnalyzer from "../main/ts/CircuitAnalyzer";
+import SerialCircuit from "../main/ts/SerialCircuit";
 
 var expect = chai.expect;
 
@@ -202,6 +202,22 @@ describe('CircuitAnalyzer', () => {
     });
 
     describe('resolve resistor values', () => {
+
+        it('calculates total resistance and power for one resistor: 10-ohm', () => {
+            let analyzer = new CircuitAnalyzer();
+            let r1 = new Resistor(10, 0, 0);
+            let circuit = new SerialCircuit()
+                .withVoltage(12)
+                .addResistor(r1);
+
+            let resolvedCircuit = analyzer.analyze(circuit);
+
+            expect(resolvedCircuit.resistanceTotal).to.eq(r1.ohmic);
+            expect(resolvedCircuit.amperageTotal).to.eq(1.2);
+            expect(resolvedCircuit.voltageTotal).to.eq(12);
+            expect(resolvedCircuit.wattageTotal).to.eq(resolvedCircuit.amperageTotal * resolvedCircuit.voltageTotal);
+        });
+
        it('calculates total resistance and power for each of three resistors: 5-ohms, 10-ohms, and 15-ohms', () => {
            let analyzer = new CircuitAnalyzer();
            let r1 = new Resistor(5, 0, 0);
@@ -214,8 +230,6 @@ describe('CircuitAnalyzer', () => {
                .addResistor(r3);
            let resolvedCircuit = analyzer.analyze(circuit);
 
-           console.log(resolvedCircuit.toString());
-           
            expect(resolvedCircuit.resistors[0].powerUsed).to.eq(80);
            expect(resolvedCircuit.resistors[1].powerUsed).to.eq(160);
            expect(resolvedCircuit.resistors[2].powerUsed).to.eq(240);
