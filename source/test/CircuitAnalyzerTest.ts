@@ -8,6 +8,7 @@ import chai = require('chai');
 import Resistor from "../main/ts/Resistor";
 import CircuitAnalyzer from "../main/ts/CircuitAnalyzer";
 import SerialCircuit from "../main/ts/SerialCircuit";
+import EmfSource from "../main/ts/EmfSource";
 
 var expect = chai.expect;
 
@@ -21,10 +22,25 @@ describe('CircuitAnalyzer', () => {
     });
 
     describe('analyze resistance', () => {
+        it('6 Ohms, 12 Volts is 2 amps : two EMF sources', () => {
+            let resistor = new Resistor(6, 0, 0);
+            let emfSource1 = new EmfSource(6, 0);
+            let emfSource2 = new EmfSource(6, 0);
+            let calculator = new CircuitAnalyzer();
+            let circuit = new SerialCircuit().addEmf(emfSource1).addEmf(emfSource2).addResistor(resistor);
+            let resolvedCircuit = calculator.analyze(circuit);
+
+            expect(resolvedCircuit.amperageTotal).to.eq(2);
+            expect(resolvedCircuit.resistanceTotal).to.eq(6);
+            expect(resolvedCircuit.voltageTotal).to.eq(12);
+            expect(resolvedCircuit.resistors.length).to.eq([resistor].length);
+        });
+
         it('6 Ohms, 12 Volts is 2 amps', () => {
             let resistor = new Resistor(6, 0, 0);
+            let emfSource = new EmfSource(12, 0);
             let calculator = new CircuitAnalyzer();
-            let circuit = new SerialCircuit().withVoltage(12).addResistor(resistor);
+            let circuit = new SerialCircuit().addEmf(emfSource).addResistor(resistor);
             let resolvedCircuit = calculator.analyze(circuit);
 
             expect(resolvedCircuit.amperageTotal).to.eq(2);
@@ -35,8 +51,9 @@ describe('CircuitAnalyzer', () => {
 
         it('8 Ohms, 12 Volts is 1.5 amps', () => {
             let resistor = new Resistor(8, 0, 0);
+            let emfSource = new EmfSource(12, 0);
             let calculator = new CircuitAnalyzer();
-            let circuit = new SerialCircuit().withVoltage(12).addResistor(resistor);
+            let circuit = new SerialCircuit().addEmf(emfSource).addResistor(resistor);
             let resolvedCircuit = calculator.analyze(circuit);
 
             expect(resolvedCircuit.amperageTotal).to.eq(1.5);
@@ -47,8 +64,9 @@ describe('CircuitAnalyzer', () => {
 
         it('10 Ohms, 12 Volts is 1.2 amps', () => {
             let resistor = new Resistor(10, 0, 0);
+            let emfSource = new EmfSource(12, 0);
             let calculator = new CircuitAnalyzer();
-            let circuit = new SerialCircuit().withVoltage(12).addResistor(resistor);
+            let circuit = new SerialCircuit().addEmf(emfSource).addResistor(resistor);
             let resolvedCircuit = calculator.analyze(circuit);
 
             expect(resolvedCircuit.amperageTotal).to.eq(1.2);
@@ -59,8 +77,9 @@ describe('CircuitAnalyzer', () => {
 
         it('12 Ohms, 12 Volts is 1 amp', () => {
             let resistor = new Resistor(12, 0, 0);
+            let emfSource = new EmfSource(12, 0);
             let calculator = new CircuitAnalyzer();
-            let circuit = new SerialCircuit().withVoltage(12).addResistor(resistor);
+            let circuit = new SerialCircuit().addEmf(emfSource).addResistor(resistor);
             let resolvedCircuit = calculator.analyze(circuit);
 
             expect(resolvedCircuit.amperageTotal).to.eq(1);
@@ -71,8 +90,9 @@ describe('CircuitAnalyzer', () => {
 
         it('6 Ohms, 6 Volts is 1 amp', () => {
             let resistor = new Resistor(6, 0, 0);
+            let emfSource = new EmfSource(6, 0);
             let calculator = new CircuitAnalyzer();
-            let circuit = new SerialCircuit().withVoltage(6).addResistor(resistor);
+            let circuit = new SerialCircuit().addEmf(emfSource).addResistor(resistor);
             let resolvedCircuit = calculator.analyze(circuit);
 
             expect(resolvedCircuit.amperageTotal).to.eq(1);
@@ -83,10 +103,25 @@ describe('CircuitAnalyzer', () => {
     });
 
     describe('analyze voltage', () => {
+        it('6 Ohms, 12 Volts is 2 amps : two EMF sources', () => {
+            let resistor = new Resistor(6, 0, 0);
+            let emfSource1 = new EmfSource(0, 1);
+            let emfSource2 = new EmfSource(0, 1);
+            let calculator = new CircuitAnalyzer();
+            let circuit = new SerialCircuit().addEmf(emfSource1).addEmf(emfSource2).addResistor(resistor);
+            let resolvedCircuit = calculator.analyze(circuit);
+
+            expect(resolvedCircuit.amperageTotal).to.eq(2);
+            expect(resolvedCircuit.resistanceTotal).to.eq(6);
+            expect(resolvedCircuit.voltageTotal).to.eq(12);
+            expect(resolvedCircuit.resistors.length).to.eq([resistor].length);
+        });
+
         it('6 Ohms, 12 Volts is 2 amps', () => {
             let resistor = new Resistor(6, 0, 0);
+            let emfSource = new EmfSource(0, 2);
             let calculator = new CircuitAnalyzer();
-            let circuit = new SerialCircuit().withAmperage(2).addResistor(resistor);
+            let circuit = new SerialCircuit().addEmf(emfSource).addResistor(resistor);
             let resolvedCircuit = calculator.analyze(circuit);
 
             expect(resolvedCircuit.amperageTotal).to.eq(2);
@@ -97,8 +132,9 @@ describe('CircuitAnalyzer', () => {
 
         it('8 Ohms, 12 Volts is 1.5 amps', () => {
             let resistor = new Resistor(8, 0, 0);
+            let emfSource = new EmfSource(0, 1.5);
             let calculator = new CircuitAnalyzer();
-            let circuit = new SerialCircuit().withAmperage(1.5).addResistor(resistor);
+            let circuit = new SerialCircuit().addEmf(emfSource).addResistor(resistor);
             let resolvedCircuit = calculator.analyze(circuit);
 
             expect(resolvedCircuit.amperageTotal).to.eq(1.5);
@@ -109,8 +145,9 @@ describe('CircuitAnalyzer', () => {
 
         it('10 Ohms, 12 Volts is 1.2 amps', () => {
             let resistor = new Resistor(10, 0, 0);
+            let emfSource = new EmfSource(0, 1.2);
             let calculator = new CircuitAnalyzer();
-            let circuit = new SerialCircuit().withAmperage(1.2).addResistor(resistor);
+            let circuit = new SerialCircuit().addEmf(emfSource).addResistor(resistor);
             let resolvedCircuit = calculator.analyze(circuit);
 
             expect(resolvedCircuit.amperageTotal).to.eq(1.2);
@@ -121,8 +158,9 @@ describe('CircuitAnalyzer', () => {
 
         it('12 Ohms, 12 Volts is 1 amp', () => {
             let resistor = new Resistor(12, 0, 0);
+            let emfSource = new EmfSource(0, 1);
             let calculator = new CircuitAnalyzer();
-            let circuit = new SerialCircuit().withAmperage(1).addResistor(resistor);
+            let circuit = new SerialCircuit().addEmf(emfSource).addResistor(resistor);
             let resolvedCircuit = calculator.analyze(circuit);
 
             expect(resolvedCircuit.amperageTotal).to.eq(1);
@@ -133,8 +171,9 @@ describe('CircuitAnalyzer', () => {
 
         it('6 Ohms, 6 Volts is 1 amp', () => {
             let resistor = new Resistor(6, 0, 0);
+            let emfSource = new EmfSource(0, 1);
             let calculator = new CircuitAnalyzer();
-            let circuit = new SerialCircuit().withAmperage(1).addResistor(resistor);
+            let circuit = new SerialCircuit().addEmf(emfSource).addResistor(resistor);
             let resolvedCircuit = calculator.analyze(circuit);
 
             expect(resolvedCircuit.amperageTotal).to.eq(1);
@@ -145,9 +184,22 @@ describe('CircuitAnalyzer', () => {
     });
 
     describe('analyze current', () => {
-        it('6 Ohms, 12 Volts is 2 amps', () => {
+        it('6 Ohms, 12 Volts is 2 amps : two EMF sources', () => {
+            let emfSource1 = new EmfSource(6, 0.5);
+            let emfSource2 = new EmfSource(6, 1.5);
             let calculator = new CircuitAnalyzer();
-            let circuit = new SerialCircuit().withAmperage(2).withVoltage(12);
+            let circuit = new SerialCircuit().addEmf(emfSource1).addEmf(emfSource2);
+            let resolvedCircuit = calculator.analyze(circuit);
+
+            expect(resolvedCircuit.amperageTotal).to.eq(2);
+            expect(resolvedCircuit.resistanceTotal).to.eq(6);
+            expect(resolvedCircuit.voltageTotal).to.eq(12);
+        });
+
+        it('6 Ohms, 12 Volts is 2 amps', () => {
+            let emfSource = new EmfSource(12, 2);
+            let calculator = new CircuitAnalyzer();
+            let circuit = new SerialCircuit().addEmf(emfSource);
             let resolvedCircuit = calculator.analyze(circuit);
 
             expect(resolvedCircuit.amperageTotal).to.eq(2);
@@ -157,8 +209,9 @@ describe('CircuitAnalyzer', () => {
         });
 
         it('8 Ohms, 12 Volts is 1.5 amps', () => {
+            let emfSource = new EmfSource(12, 1.5);
             let calculator = new CircuitAnalyzer();
-            let circuit = new SerialCircuit().withAmperage(1.5).withVoltage(12);
+            let circuit = new SerialCircuit().addEmf(emfSource);
             let resolvedCircuit = calculator.analyze(circuit);
 
             expect(resolvedCircuit.amperageTotal).to.eq(1.5);
@@ -168,8 +221,9 @@ describe('CircuitAnalyzer', () => {
         });
 
         it('10 Ohms, 12 Volts is 1.2 amps', () => {
+            let emfSource = new EmfSource(12, 1.2);
             let calculator = new CircuitAnalyzer();
-            let circuit = new SerialCircuit().withAmperage(1.2).withVoltage(12);
+            let circuit = new SerialCircuit().addEmf(emfSource);
             let resolvedCircuit = calculator.analyze(circuit);
 
             expect(resolvedCircuit.amperageTotal).to.eq(1.2);
@@ -179,8 +233,9 @@ describe('CircuitAnalyzer', () => {
         });
 
         it('12 Ohms, 12 Volts is 1 amp', () => {
+            let emfSource = new EmfSource(12, 1);
             let calculator = new CircuitAnalyzer();
-            let circuit = new SerialCircuit().withAmperage(1).withVoltage(12);
+            let circuit = new SerialCircuit().addEmf(emfSource);
             let resolvedCircuit = calculator.analyze(circuit);
 
             expect(resolvedCircuit.amperageTotal).to.eq(1);
@@ -190,8 +245,9 @@ describe('CircuitAnalyzer', () => {
         });
 
         it('6 Ohms, 6 Volts is 1 amp', () => {
+            let emfSource = new EmfSource(6, 1);
             let calculator = new CircuitAnalyzer();
-            let circuit = new SerialCircuit().withAmperage(1).withVoltage(6);
+            let circuit = new SerialCircuit().addEmf(emfSource);
             let resolvedCircuit = calculator.analyze(circuit);
 
             expect(resolvedCircuit.amperageTotal).to.eq(1);
@@ -204,18 +260,20 @@ describe('CircuitAnalyzer', () => {
     describe('resolve resistor values', () => {
 
         it('calculates total resistance and power for no resistors', () => {
+            let emfSource = new EmfSource(24, 2);
             let analyzer = new CircuitAnalyzer();
-            let circuit = new SerialCircuit().withVoltage(24).withAmperage(2);
+            let circuit = new SerialCircuit().addEmf(emfSource);
             let resolvedCircuit = analyzer.analyze(circuit);
 
             expect(resolvedCircuit.resistanceTotal).to.eq(12);
         });
 
         it('calculates total resistance and power for one resistor: 10-ohm', () => {
+            let emfSource = new EmfSource(12, 0);
             let analyzer = new CircuitAnalyzer();
             let r1 = new Resistor(10, 0, 0);
             let circuit = new SerialCircuit()
-                .withVoltage(12)
+                .addEmf(emfSource)
                 .addResistor(r1);
 
             let resolvedCircuit = analyzer.analyze(circuit);
@@ -231,8 +289,9 @@ describe('CircuitAnalyzer', () => {
            let r1 = new Resistor(5, 0, 0);
            let r2 = new Resistor(10, 0, 0);
            let r3 = new Resistor(15, 0, 0);
+           let emfSource = new EmfSource(120, 0);
            let circuit = new SerialCircuit()
-               .withVoltage(120)
+               .addEmf(emfSource)
                .addResistor(r1)
                .addResistor(r2)
                .addResistor(r3);

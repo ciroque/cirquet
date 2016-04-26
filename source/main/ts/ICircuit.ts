@@ -1,14 +1,12 @@
-/**
- * Created by swagner on 4/3/16.
- */
-
 "use strict";
 
-import ResistorProperties from "./IResistorProperties";
+import IEmfProperties from "./IEmfProperties";
+import IResistorProperties from "./IResistorProperties";
 import ICloneable from "./ICloneable";
 
 interface ICircuit extends ICloneable {
-    resistors: ResistorProperties[];
+    resistors: IResistorProperties[];
+    electromotiveForces: IEmfProperties[];
     amperageTotal: number;
     voltageTotal: number;
     resistanceTotal: number;

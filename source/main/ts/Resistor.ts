@@ -1,7 +1,3 @@
-/**
- * Created by swagner on 4/3/16.
- */
-
 import IResistorProperties from "./IResistorProperties";
 
 export default class Resistor implements IResistorProperties {

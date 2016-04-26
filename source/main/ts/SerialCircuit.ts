@@ -1,15 +1,13 @@
-/**
- * Created by swagner on 4/3/16.
- */
-
 "use strict";
 
-import ResistorProperties from "./IResistorProperties";
+import IEmfProperties from "./IEmfProperties";
+import IResistorProperties from "./IResistorProperties";
 import ICircuit from "./ICircuit";
 import Cloneable from "./Cloneable";
 
 export default class SerialCircuit extends Cloneable implements ICircuit {
-    resistors: ResistorProperties[] = [];
+    electromotiveForces: IEmfProperties[] = [];
+    resistors: IResistorProperties[] = [];
     amperageTotal: number = 0;
     voltageTotal: number = 0;
     resistanceTotal: number = 0;
@@ -17,29 +15,16 @@ export default class SerialCircuit extends Cloneable implements ICircuit {
 
     constructor() { super(); }
 
-    withAmperage(amperage: number) {
-        this.amperageTotal = amperage;
-        return this;
-    }
-
-    withVoltage(voltage: number) {
-        this.voltageTotal = voltage;
-        return this;
-    }
-
-    withTotalResistance(resistance: number) {
-        this.resistanceTotal = resistance;
-        return this;
-    }
-
-    withTotalWattage(wattage: number) {
-        this.wattageTotal = wattage;
-        return this;
-    }
-
-    addResistor(resistor: ResistorProperties) {
+    addResistor(resistor: IResistorProperties) {
         this.resistors.push(resistor);
         this.resistanceTotal += resistor.ohmic;
+        return this;
+    }
+
+    addEmf(emf: IEmfProperties) {
+        this.electromotiveForces.push();
+        this.voltageTotal += emf.voltage;
+        this.amperageTotal += emf.amperage;
         return this;
     }
 
