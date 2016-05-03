@@ -36,9 +36,8 @@ describe('RandomSource', () => {
                 let resistance = randomSource.getResistance();
                 let oom = Math.floor(Math.log2(resistance) * (1 / Math.log2(10)));
                 let baseResistance = resistance / Math.pow(10, oom);
-
                 expect(baseResistance).to.be.oneOf(randomSource.standardResistances);
             }
-            });
+        });
     });
 });
