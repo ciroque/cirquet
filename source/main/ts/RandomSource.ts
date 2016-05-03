@@ -10,6 +10,7 @@ export default class RandomSource implements IRandomSource {
         console.log("emfCount = " + emfCount + "\n");
         return emfCount;
     }
+
     getResistorCount(): number {
         let resistorCount = Math.floor(Math.random() * (12 - 1) + 1);
         console.log("resistorCount = " + resistorCount + "\n");
@@ -25,13 +26,15 @@ export default class RandomSource implements IRandomSource {
     getResistance(): number {
         let multipliers = [1, 10, 100, 1000, 10000, 100000, 1000000];
 
-        let resistanceIndex = parseInt(Math.random() * (this.standardResistances.length));
-        let multiplierIndex = parseInt(Math.random() * (multipliers.length));
+        let resistanceIndex = Math.floor(Math.random() * (this.standardResistances.length));
+        let multiplierIndex = Math.floor(Math.random() * (multipliers.length));
 
         return this.standardResistances[resistanceIndex] * multipliers[multiplierIndex];
     }
 
     getAmperage(): number {
-        return 0;
+        let amperage = Math.floor(Math.random() * (240 - 1) + 1);
+        console.log("amperage = " + amperage + "\n");
+        return amperage;
     }
 }

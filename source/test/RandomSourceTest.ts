@@ -39,5 +39,12 @@ describe('RandomSource', () => {
                 expect(baseResistance).to.be.oneOf(randomSource.standardResistances);
             }
         });
+
+        it('generates random amperage between 0 and 240', () => {
+           let randomSource = new RandomSource();
+           let amperage = randomSource.getAmperage();
+
+            expect(amperage).to.be.within(0, 240);
+        });
     });
 });
