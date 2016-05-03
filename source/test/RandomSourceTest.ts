@@ -29,14 +29,16 @@ describe('RandomSource', () => {
             expect(resistorCount).to.be.within(1, 12);
         });
 
-        it('does the things', () => {
+        it('generates valid resistance values', () => {
             let randomSource = new RandomSource();
-            console.log('--- JOIN THE RESISTANCE ---');
-            console.log(randomSource.getResistance());
-            console.log(randomSource.getResistance());
-            console.log(randomSource.getResistance());
-            console.log(randomSource.getResistance());
-            console.log(randomSource.getResistance());
-        });
+
+            for(var index = 0; index < 20; index++) {
+                let resistance = randomSource.getResistance();
+                let oom = Math.floor(Math.log2(resistance) * (1 / Math.log2(10)));
+                let baseResistance = resistance / Math.pow(10, oom);
+
+                expect(baseResistance).to.be.oneOf(randomSource.standardResistances);
+            }
+            });
     });
 });
