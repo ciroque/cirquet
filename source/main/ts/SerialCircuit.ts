@@ -22,7 +22,7 @@ export default class SerialCircuit extends Cloneable implements ICircuit {
     }
 
     addEmf(emf: IEmfProperties) {
-        this.electromotiveForces.push();
+        this.electromotiveForces.push(emf);
         this.voltageTotal += emf.voltage;
         this.amperageTotal += emf.amperage;
         return this;

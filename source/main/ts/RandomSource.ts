@@ -7,19 +7,19 @@ export default class RandomSource implements IRandomSource {
 
     getEmfCount(): number {
         let emfCount = Math.floor(Math.random() * (6 - 1) + 1);
-        console.log("emfCount = " + emfCount + "\n");
+        // console.log("emfCount = " + emfCount + "\n");
         return emfCount;
     }
 
     getResistorCount(): number {
         let resistorCount = Math.floor(Math.random() * (12 - 1) + 1);
-        console.log("resistorCount = " + resistorCount + "\n");
+        // console.log("resistorCount = " + resistorCount + "\n");
         return resistorCount;
     }
 
     getVoltage(): number {
         let voltage = Math.floor(Math.random() * (240 - 1) + 1);
-        console.log("voltage = " + voltage + "\n");
+        // console.log("voltage = " + voltage + "\n");
         return voltage;
     }
     
@@ -34,7 +34,7 @@ export default class RandomSource implements IRandomSource {
 
     getAmperage(): number {
         let amperage = Math.floor(Math.random() * (240 - 1) + 1);
-        console.log("amperage = " + amperage + "\n");
+        // console.log("amperage = " + amperage + "\n");
         return amperage;
     }
 }
