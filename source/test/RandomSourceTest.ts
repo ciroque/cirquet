@@ -46,5 +46,11 @@ describe('RandomSource', () => {
 
             expect(amperage).to.be.within(0, 240);
         });
+
+        it('generates voltages from a sequence of common voltages', () => {
+            let randomSource = new RandomSource();
+            let voltage = randomSource.getCommonVoltage();
+            expect(voltage).to.be.oneOf(randomSource.standardVoltages);
+        })
     });
 });

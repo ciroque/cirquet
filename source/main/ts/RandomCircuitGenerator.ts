@@ -15,11 +15,12 @@ export default class RandomCircuitGenerator  {
         this.randomSource = randomSource;
     }
 
-    createSerialCircuit(): ICircuit {
+    createSerialCircuit(useCommonVoltages: boolean = true): ICircuit {
         let circuit = new SerialCircuit();
 
         for(var index = 0; index < this.randomSource.getEmfCount(); index++) {
-            circuit.addEmf(new EmfSource(this.randomSource.getVoltage(), 0));
+            let voltage = useCommonVoltages ? this.randomSource.getCommonVoltage() : this.randomSource.getVoltage();
+            circuit.addEmf(new EmfSource(voltage, 0));
         }
         
         for(var index = 0; index < this.randomSource.getResistorCount(); index++) {

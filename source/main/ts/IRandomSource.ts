@@ -6,6 +6,7 @@ interface IRandomSource {
     getResistance(): number;
     getResistorCount(): number;
     getVoltage(): number;
+    getCommonVoltage(): number;
 }
 
 export default IRandomSource;
