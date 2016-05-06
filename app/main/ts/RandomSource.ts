@@ -7,21 +7,15 @@ export default class RandomSource implements IRandomSource {
     standardVoltages = [1.8, 3.3, 5, 9, 12, 15, 18, 24, 48, 120, 220, 240];
 
     getEmfCount(): number {
-        let emfCount = Math.floor(Math.random() * (6 - 1) + 1);
-        // console.log("emfCount = " + emfCount + "\n");
-        return emfCount;
+        return Math.floor(Math.random() * (6 - 1) + 1);
     }
 
     getResistorCount(): number {
-        let resistorCount = Math.floor(Math.random() * (12 - 1) + 1);
-        // console.log("resistorCount = " + resistorCount + "\n");
-        return resistorCount;
+        return Math.floor(Math.random() * (12 - 1) + 1);
     }
 
     getVoltage(): number {
-        let voltage = Math.floor(Math.random() * (240 - 1) + 1);
-        // console.log("voltage = " + voltage + "\n");
-        return voltage;
+        return Math.floor(Math.random() * (240 - 1) + 1);
     }
     
     getResistance(): number {
@@ -32,9 +26,7 @@ export default class RandomSource implements IRandomSource {
     }
 
     getAmperage(): number {
-        let amperage = Math.floor(Math.random() * (240 - 1) + 1);
-        // console.log("amperage = " + amperage + "\n");
-        return amperage;
+        return Math.floor(Math.random() * (240 - 1) + 1);
     }
 
     getCommonVoltage(): number {
